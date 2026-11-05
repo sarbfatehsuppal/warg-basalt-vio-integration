@@ -7,7 +7,7 @@ Project notes and validation workspace for my visual-inertial odometry contribut
 The implementation is in the official UWARG autonomy repository:
 
 - [Draft pull request #231 — Add initial OAK-D BasaltVIO integration and tests](https://github.com/UWARG/autonomy-monorepo/pull/231)
-- [Implementation snapshot in the camera module](https://github.com/UWARG/autonomy-monorepo/tree/eaf085f641effa3436bc88653069244cdf0adaf6/camera)
+- [Implementation snapshot in the camera module](https://github.com/UWARG/autonomy-monorepo/tree/c8fc255d35ed4bc727ad83b9bf14865feea31d0a/camera)
 - [Task #193 — Add Visual Odometry via BasaltVIO](https://github.com/UWARG/autonomy-monorepo/issues/193)
 
 This repository holds project notes and future experiment results. The source changes are maintained in WARG's repository.
@@ -18,7 +18,7 @@ Integrate BasaltVIO with the OAK-D stereo camera and IMU pipeline to expose loca
 
 ## Current Status
 
-**Initial implementation submitted as a draft PR; hardware validation pending.**
+**Software implementation and non-hardware validation complete; camera testing pending.**
 
 The contribution has not been merged. Real-camera startup, calibration, tracking accuracy, drift, and runtime performance have not yet been validated.
 
@@ -29,17 +29,19 @@ The contribution has not been merged. Real-camera startup, calibration, tracking
 - A `VioPose` data structure containing position, orientation, SDK timestamp, and host receipt time.
 - Nonblocking pose polling with invalid-message handling and quaternion normalization.
 - Pipeline and queue cleanup.
-- A CSV recording tool for hardware trials.
+- A CSV recorder with environment/status manifests, interruption handling, silence detection, and no-overwrite protection.
+- Offline analysis for measured stationary, translation, rotation, and return-to-start trials.
+- SDK/hardware preflight and a complete camera-test procedure.
 
 ## Local Software Checks
 
-- **16 hardware-free unit tests passed.**
+- **49 hardware-free tests passed locally and in Linux GitHub Actions CI.**
 - Ruff checks passed for the changed Python files.
 - Python syntax checks passed.
 - `git diff --check` passed.
 - The recording tool's `--help` command was verified.
 
-The unit tests use mock messages and queues. They check pose conversion, timestamps, invalid data, bounded polling, and cleanup. They do not validate real SDK pipeline wiring, sensor synchronization, calibration, or physical tracking accuracy.
+The automated tests use SDK doubles and known synthetic geometry, plus real SDK point/quaternion accessors. They check pipeline connections, pose conversion, timestamps, invalid data, bounded shutdown, CSV/manifest recording, failure handling, and analysis mathematics. They do not establish actual device operation, calibration, synchronization quality, or physical tracking accuracy.
 
 Development environment: Ubuntu 24.04 on WSL 2, Python 3.12, DepthAI 3.10.0 with BasaltVIO available.
 
@@ -68,3 +70,11 @@ plots/          Figures generated from validation data
 
 - [UWARG autonomy monorepo](https://github.com/UWARG/autonomy-monorepo)
 - [Luxonis BasaltVIO example](https://docs.luxonis.com/software-v3/depthai/examples/vslam/basalt_vio)
+
+## Camera Test Handoff
+
+- [Setup and application API](https://github.com/UWARG/autonomy-monorepo/blob/basalt-vio-integration/camera/README.md)
+- [Camera test procedure, trial commands, and report template](https://github.com/UWARG/autonomy-monorepo/blob/basalt-vio-integration/camera/vio_hardware_validation.md)
+- [Passing Linux CI run](https://github.com/UWARG/autonomy-monorepo/actions/runs/42111557207)
+
+The remaining validation requires the actual camera at the next test session. The PR is still a draft, and effectiveness results have not been measured.
