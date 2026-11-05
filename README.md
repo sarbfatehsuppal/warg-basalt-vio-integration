@@ -7,7 +7,7 @@ Project notes and validation workspace for my visual-inertial odometry contribut
 The implementation is in the official UWARG autonomy repository:
 
 - [Draft pull request #231 — Add initial OAK-D BasaltVIO integration and tests](https://github.com/UWARG/autonomy-monorepo/pull/231)
-- [Implementation snapshot in the camera module](https://github.com/UWARG/autonomy-monorepo/tree/c8fc255d35ed4bc727ad83b9bf14865feea31d0a/camera)
+- [Implementation snapshot in the camera module](https://github.com/UWARG/autonomy-monorepo/tree/5d035b50788e7b24d8c23277d15cb383e8fca3d6/camera)
 - [Task #193 — Add Visual Odometry via BasaltVIO](https://github.com/UWARG/autonomy-monorepo/issues/193)
 
 This repository holds project notes and future experiment results. The source changes are maintained in WARG's repository.
@@ -75,6 +75,6 @@ plots/          Figures generated from validation data
 
 - [Setup and application API](https://github.com/UWARG/autonomy-monorepo/blob/basalt-vio-integration/camera/README.md)
 - [Camera test procedure, trial commands, and report template](https://github.com/UWARG/autonomy-monorepo/blob/basalt-vio-integration/camera/vio_hardware_validation.md)
-- [Passing Linux CI run](https://github.com/UWARG/autonomy-monorepo/actions/runs/42111557207)
+- [Passing Linux CI run](https://github.com/UWARG/autonomy-monorepo/actions/runs/42114463207)
 
 The remaining validation requires the actual camera at the next test session. The PR is still a draft, and effectiveness results have not been measured.
